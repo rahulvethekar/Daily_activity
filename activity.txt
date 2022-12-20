@@ -1,0 +1,5 @@
+date- 19/12/2022
+
+# linux commands revised
+# what is packages, module, library,framework revised
+# Interview questions those asked by client in previous Interview are revised
