@@ -1,0 +1,38 @@
+##Mongodb commands for databases
+
+1.Show databases
+>> show dbs
+
+2.create new db or switch databases
+>>use dbName
+
+3.View current db
+>>db
+
+4.Delete database
+>>db.dropDatabase()
+
+##MongoDB commands for Collections
+
+1.Show Collections
+>>show collections
+
+2.create collecions 
+>> db.createCollection('student')
+
+3.Delete a collection
+>> db.collectionName.drop()
+
+##MongoDB commands for rows
+
+1.Insert one row
+>> db.student.insert({'rn':1,'name':'rahul','marks':56})
+
+2.insert many rows
+>>db.student.insert(
+    [
+    {'rn':1,'name':'rahul','marks':56},
+    {'rn':2,'name':'yogita','age':22}
+    ]
+    )
+
