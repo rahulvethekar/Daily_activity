@@ -35,4 +35,73 @@
     {'rn':2,'name':'yogita','age':22}
     ]
     )
+3.Show all rows in collections
+>> db.student.find()
+
+4.show all rows in prettyfied from
+>>db.student.find().pretty()
+
+5.search in mongodb Database collection
+>>db.student.find({name:'rahul'})
+
+6.limit the rows in database
+>> db.student.find().limit(1)
+
+7.count the no of rows in output
+>>db.student.find().count()
+
+8.sort to the rows
+>>db.student.find().sort({rn:1}) i.e 1 for acending and -1 for decending order.
+
+9. find the first match of object in rows
+>>db.student.findOne({name:"rahul"})
+
+##update row
+1.update to single record
+>>db.student.updateOne({name:'yogita'},{$set: {'rn':2,'name':'y','age':22}})
+2.Update to many record
+>>db.student.updateMany({name:'rahul'},{$set: {add:'a.nagar'}})
+
+#insert record if not present already
+1.upsert
+>>db.student.update({name:'shubham'},{$set: {'rn':84,'name':'rahul','age':22}},{upsert:true})
+
+##delete documents
+1.To delete single document
+>>db.student.findOne({rn:84})
+2.To delete multiple documents
+>>db.student.deleteMany({name:'rahul'})
+
+##Filter to documents
+1.Greate than(gt),less than(lt),greater than equal to(gte),less than equal to(lte)
+>>db.student.find({marks:{$lt:60}})
+>>db.student.find({marks:{$lte:60}})
+>>db.student.find({marks:{$gt:60}})
+>>db.student.find({marks:{$gte:60}})
+
+##Logical opearator for Filter
+1.AND
+>>db.student.find({marks:{$lte:65},add:'pune'})
+2.OR
+>>db.student.find({$or:[{add:'pune'},{marks:55}]})
+3.NOR
+>>db.student.find({$nor:[{name:'akshay'},{marks:45},{add:'pune'}]})
+4.not
+1.for string need a regex pattern
+>>db.student.find({name:{$not:{$regex:'nitin'}}}) 
+2.for a interger
+>>db.student.find({marks:{$not:{$gte:43}}})
+
+ 
+
+
+
+
+
+
+
+
+
+
+
 

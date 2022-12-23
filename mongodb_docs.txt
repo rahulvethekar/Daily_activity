@@ -12,7 +12,6 @@ Document:-
 
 
 Advantages of MongoDB over RDBMS:-
-
 1.Schema less − MongoDB is a document database in which one collection holds different documents. Number of fields, content and size of the document can differ from one document to another.
 
 2.Structure of a single object is clear.
