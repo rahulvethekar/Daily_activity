@@ -66,7 +66,7 @@
 1.upsert
 >>db.student.update({name:'shubham'},{$set: {'rn':84,'name':'rahul','age':22}},{upsert:true})
 
-##delete documents
+##delete documents or we can use remove as well.
 1.To delete single document
 >>db.student.findOne({rn:84})
 2.To delete multiple documents
@@ -91,6 +91,13 @@
 >>db.student.find({name:{$not:{$regex:'nitin'}}}) 
 2.for a interger
 >>db.student.find({marks:{$not:{$gte:43}}})
+
+##Increment to fields value
+>>db.student.update({name:'suhas'},{$inc:{marks:43}})
+
+##rename to specific document field name
+>>db.student.update({name:'nitin'},{$rename:{add:'address'}})
+
 
  
 
