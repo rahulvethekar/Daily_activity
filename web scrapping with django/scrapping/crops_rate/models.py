@@ -8,7 +8,7 @@ class OnionRate(models.Model):
     total_onion = models.IntegerField()
     minimum_rate = models.IntegerField()
     maximum_rate = models.IntegerField()
-    row_date = models.CharField(max_length=40)
-    date = models.DateField(auto_now_add=True)
+    # row_date = models.CharField(max_length=40)
+    date = models.DateField(unique=True)
 
     
