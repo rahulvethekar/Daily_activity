@@ -1,40 +1,31 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from bs4 import BeautifulSoup
-from .scrapper.onion_rate_scarpper import onion_rate_scrapper 
-from .scrapper.daily_rates import daily_rates_function
 from .scrapper.all_data import all_rates_function
 from .models import OnionRate
-import csv
 import pandas as pd
 from csv import writer
 from logger import logger
 # Create your views here.
 
-def scrap_onion_details(request):
-    data=onion_rate_scrapper()
-    print(data)
-    return HttpResponse('scrapping done!')
-
 
 def all_rates_view(request):
-    all_data = all_rates_function()
+    all_data = all_rates_function.delay()
     # print(all)
     # template_name = 'crops_rate/daily_rate.html'
 
-    for rate_dict in all_data:
-        try:
-            OnionRate.objects.create(crop_name=rate_dict.get('Name'),
-            measurement=rate_dict.get('Measurement'),
-            total_onion=rate_dict.get('Total_onion'),
-            minimum_rate=rate_dict.get('Minimum_rate'),
-            maximum_rate=rate_dict.get('Maximum_rate'),
-            date=rate_dict.get('Date'))
-        except:
-            logger.error('Duplicates')
-            continue
+    # for rate_dict in all_data:
+    #     try:
+    #         OnionRate.objects.create(crop_name=rate_dict.get('Name'),
+    #         measurement=rate_dict.get('Measurement'),
+    #         total_onion=rate_dict.get('Total_onion'),
+    #         minimum_rate=rate_dict.get('Minimum_rate'),
+    #         maximum_rate=rate_dict.get('Maximum_rate'),
+    #         date=rate_dict.get('Date'))
+    #     except:
+    #         logger.error('Duplicates')
+    #         continue
     # return render(request,template_name,{'data':daily_rates_dict,'date':date})
-    return HttpResponse('Scrapping Done Successfully!')
+    return HttpResponse('Data is scrapping please wait for while!!!!')
 
 def get_all_data_from_database(request):
    data = OnionRate.objects.all()
@@ -65,11 +56,6 @@ def wirte_csv_file(data):
             date = field.date
             info = [id,crop_name,measurement,total_onion,minimum_rate,maximum_rate,date]
             thewriter.writerow(info)
-
-
-
-
-
 
 
 

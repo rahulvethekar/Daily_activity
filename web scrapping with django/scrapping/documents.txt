@@ -1,0 +1,8 @@
+
+###celery worker run command  :-
+Step 1 :- go to root folder of project
+step 2:-run command:$ celery -A scrapping.celery worker --pool=solo -l info
+
+####celery beat run command:
+Step 1 :- go to root folder of project
+step 2:run command:- $celery -A scrapping beat -l info

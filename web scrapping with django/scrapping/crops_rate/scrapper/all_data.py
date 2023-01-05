@@ -2,10 +2,16 @@ from bs4 import BeautifulSoup
 import requests
 import time
 import datetime
-all_record_list = []
+from .rates_no import updated_rates_no
+from celery import shared_task
+from ..models import OnionRate
+from logger import logger
 
-def all_rates_function():
-    for no in range(3292,3297+1):
+all_record_list = []
+@shared_task(bind=True)
+def all_rates_function(self):
+    rates_no = updated_rates_no()
+    for no in range(3290,rates_no+1):
         try:
             source = requests.get('http://www.puneapmc.org/history.aspx?id=Rates'+str(no))
             soup = BeautifulSoup(source.content,'html.parser')
@@ -60,6 +66,18 @@ def all_rates_function():
             continue
         except ValueError as e:
             print(repr(e))
+            continue
+
+    for rate_dict in all_record_list:##loading data to datbase
+        try:
+            OnionRate.objects.create(crop_name=rate_dict.get('Name'),
+            measurement=rate_dict.get('Measurement'),
+            total_onion=rate_dict.get('Total_onion'),
+            minimum_rate=rate_dict.get('Minimum_rate'),
+            maximum_rate=rate_dict.get('Maximum_rate'),
+            date=rate_dict.get('Date'))
+        except:
+            logger.error('Duplicates')
             continue
     return all_record_list
 if __name__ =='__main__':
